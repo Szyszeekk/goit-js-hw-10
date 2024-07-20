@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./js/02-snackbar.js" type="module" defer></script>
     <title>Page 3</title>
   </head>
   <body>
@@ -11,5 +12,57 @@
       <a href="./index.html">Go to home</a>
       <h1>Welcome to page 3</h1>
     </section>
+    <form class="form">
+      <label class="delay-label">
+        Delay (ms)
+        <input type="number" name="delay" class="timeout" required />
+      </label>
+
+      <fieldset class="fieldset">
+        <legend>State</legend>
+        <label>
+          <input
+            type="radio"
+            name="state"
+            value="fulfilled"
+            class="isFulfilled"
+            required
+          />
+          Fulfilled
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="state"
+            value="rejected"
+            class="isFulfilled"
+            required
+          />
+          Rejected
+        </label>
+      </fieldset>
+
+      <button type="submit" class="button">Create notification</button>
+    </form>
   </body>
 </html>
+
+<style>
+  .form {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .delay-label {
+    display: flex;
+    flex-direction: column;
+  }
+  .timeout {
+    height: 30px;
+  }
+  .button {
+    border-radius: 0;
+    border: 1px solid;
+  }
+</style>

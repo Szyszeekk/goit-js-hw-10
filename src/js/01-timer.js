@@ -1,5 +1,7 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
 
 const button = document.querySelector('.button');
 const daysElement = document.querySelector('[data-days]');
@@ -17,7 +19,11 @@ const options = {
     let userSelectedDate = selectedDates[0];
     console.log(userSelectedDate);
     if (userSelectedDate < new Date()) {
-      window.alert('Please choose a date in the future');
+      // window.alert('Please choose a date in the future');
+      iziToast.error({
+        title: 'Error',
+        message: 'Please choose a date in the future',
+      });
       button.disabled = true;
     } else {
       button.disabled = false;

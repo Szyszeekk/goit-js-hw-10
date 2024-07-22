@@ -9,6 +9,7 @@ const hoursElement = document.querySelector('[data-hours]');
 const minutesElement = document.querySelector('[data-minutes]');
 const secondsElement = document.querySelector('[data-seconds]');
 let countdownInterval;
+const inputEl = document.querySelector('#datetime-picker');
 
 const options = {
   enableTime: true,
@@ -31,7 +32,7 @@ const options = {
   },
 };
 
-flatpickr('#datetime-picker', options);
+const datetimePicker = flatpickr('#datetime-picker', options);
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
@@ -62,10 +63,20 @@ function updateCountdown(targetDate) {
   hoursElement.textContent = formatTime(hours);
   minutesElement.textContent = formatTime(minutes);
   secondsElement.textContent = formatTime(seconds);
+
+  if (
+    daysElement.textContent === '00' &&
+    hoursElement.textContent === '00' &&
+    minutesElement.textContent === '00' &&
+    secondsElement.textContent === '00'
+  ) {
+    clearInterval(countdownInterval);
+    button.disabled = false;
+    inputEl.removeAttribute('disabled');
+  }
 }
 
 button.addEventListener('click', () => {
-  const datetimePicker = flatpickr('#datetime-picker');
   const selectedDate = datetimePicker.selectedDates[0];
 
   updateCountdown(selectedDate);
@@ -75,8 +86,25 @@ button.addEventListener('click', () => {
   }, 1000);
 
   button.disabled = true;
+
+  inputEl.setAttribute('disabled', '');
 });
 
 function formatTime(time) {
   return time < 10 ? `0${time}` : time;
 }
+
+const resetButton = document.querySelector('.reset');
+resetButton.addEventListener('click', event => {
+  event.preventDefault();
+
+  clearInterval(countdownInterval);
+
+  button.disabled = false;
+  inputEl.removeAttribute('disabled');
+
+  daysElement.textContent = '00';
+  hoursElement.textContent = '00';
+  minutesElement.textContent = '00';
+  secondsElement.textContent = '00';
+});
